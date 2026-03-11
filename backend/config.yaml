@@ -1,0 +1,41 @@
+app:
+  name: GroundedAI
+  version: 1.0.0
+  env: development
+
+embeddings:
+  model_name: all-MiniLM-L6-v2
+  dimensions: 384
+  batch_size: 64
+  device: auto  # auto, cpu, or cuda
+
+chunking:
+  chunk_size_tokens: 750
+  overlap_tokens: 100
+  min_chunk_size_chars: 100
+  tokenizer: cl100k_base
+
+retrieval:
+  top_k_default: 5
+  top_k_max: 10
+  hybrid_alpha: 0.7  # 0.7 * vector + 0.3 * bm25
+  use_reranking: false
+  reranker_model: cross-encoder/ms-marco-MiniLM-L-6-v2
+
+generation:
+  model: mistral:7b-instruct-q4_K_M
+  temperature: 0.1
+  num_ctx: 8192
+  max_context_tokens: 4000
+  confidence_threshold: 0.35
+  stream: true
+
+conversation:
+  memory_window: 3
+
+upload:
+  max_file_size_mb: 50
+  allowed_types:
+    - pdf
+    - docx
+    - txt
